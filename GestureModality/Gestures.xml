@@ -1,0 +1,33 @@
+<!--This XML file contains the gestures of the database.-->
+<Gestures>
+  <Gesture>
+    <ID>0</ID>
+    <NAME>bola</NAME>
+    <SEMANTIC>bola</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>1</ID>
+    <NAME>invite</NAME>
+    <SEMANTIC>invite</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>2</ID>
+    <NAME>leave</NAME>
+    <SEMANTIC>leave</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>3</ID>
+    <NAME>mute1_Right</NAME>
+    <SEMANTIC>muteR</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>4</ID>
+    <NAME>tempo</NAME>
+    <SEMANTIC>tempo</SEMANTIC>
+  </Gesture>
+  <Gesture>
+    <ID>5</ID>
+    <NAME>unmute1_Right</NAME>
+    <SEMANTIC>unmuteR</SEMANTIC>
+  </Gesture>
+</Gestures>

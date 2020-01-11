@@ -1,0 +1,204 @@
+﻿<?xml version="1.0"?>
+<grammar xml:lang="pt-PT" version="1.0" xmlns="http://www.w3.org/2001/06/grammar" tag-format="semantics/1.0">
+	<rule id="rootRule" scope="public">
+	  <item>
+      <item repeat="0-1"><ruleref uri="#activate_command"/><tag>out.activate_command=rules.latest();</tag></item>
+      <item repeat="0-1"><ruleref uri="#channel_commands"/><tag>out.channel_commands=rules.latest();</tag></item>
+      <item repeat="0-1"><ruleref uri="#external_commands"/><tag>out.external_commands=rules.latest();</tag></item>     
+      <item repeat="0-1"><ruleref uri="#server_commands"/><tag>out.server_commands=rules.latest();</tag></item>
+      <item repeat="0-1"><ruleref uri="#role_commands"/><tag>out.role_commands=rules.latest();</tag></item>
+      <item repeat="0-1"><ruleref uri="#self_commands"/><tag>out.self_commands=rules.latest();</tag></item>
+	  </item>
+	</rule>
+
+  <!-- Regra para ativação do bot -->
+  <rule id="activate_command">
+    <one-of>
+      <item repeat="0-1">olá</item>
+      <item repeat="0-1">oh</item>
+      <item repeat="0-1">oi</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para o comando WAKE -->
+      <item>pedro<tag>out.wake="WAKE"</tag></item>
+    </one-of>
+  </rule>
+  
+  <!-- Regra para criar/remover channels -->
+	<rule id="channel_commands">
+	  <one-of>
+      <!-- Keywords para o comando ADD -->
+      <item>adicionar<tag>out.action="ADD"</tag></item>
+      <item>adiciona<tag>out.action="ADD"</tag></item>
+      <item>criar<tag>out.action="ADD"</tag></item>
+      <item>cria<tag>out.action="ADD"</tag></item>
+      <!-- Keywords para o comando REMOVE -->
+      <item>remover<tag>out.action="REMOVE"</tag></item>
+      <item>remove<tag>out.action="REMOVE"</tag></item>
+      <item>eliminar<tag>out.action="REMOVE"</tag></item>
+      <item>elimina<tag>out.action="REMOVE"</tag></item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">um</item>
+      <item repeat="0-1">uma</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para os tipos de canais -->
+      <item>canal de voz<tag>out.subject="VOICE_CHANNEL"</tag></item>
+      <item>sala de voz<tag>out.subject="VOICE_CHANNEL"</tag></item>
+      <item>canal de texto<tag>out.subject="TEXT_CHANNEL"</tag></item>
+      <item>sala de texto<tag>out.subject="TEXT_CHANNEL"</tag></item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para os nomes das salas -->
+      <item repeat="0-1">um<tag>out.name="1"</tag></item>
+      <item repeat="0-1">dois<tag>out.name="2"</tag></item>
+      <item repeat="0-1">três<tag>out.name="3"</tag></item>
+      <item repeat="0-1">quatro<tag>out.name="4"</tag></item>
+      <item repeat="0-1">cinco<tag>out.name="5"</tag></item>
+      <item repeat="0-1">seis<tag>out.name="6"</tag></item>
+      <item repeat="0-1">sete<tag>out.name="7"</tag></item>
+      <item repeat="0-1">oito<tag>out.name="8"</tag></item>
+      <item repeat="0-1">nove<tag>out.name="9"</tag></item>
+      <item repeat="0-1">dez<tag>out.name="10"</tag></item>
+
+      </one-of>
+	</rule>  
+
+  <!-- Regra para comandos sobre o servidor -->
+  <rule id="server_commands">
+    <one-of>
+      <item repeat="0-1">dá</item>
+      <item repeat="0-1">dá aí</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para os comandos KICK -->
+      <item>tira<tag>out.action="KICK"</tag></item>
+      <item>disconnect<tag>out.action="KICK"</tag></item>
+      <item>kick<tag>out.action="KICK"</tag></item>
+      <item>kicka<tag>out.action="KICK"</tag></item>
+      <!-- Keywords para os comandos BAN/UNBAN -->
+      <item>ban<tag>out.action="BAN"</tag></item>
+      <item>expulsa<tag>out.action="BAN"</tag></item>
+      <!---->
+      <item>remove o ban<tag>out.action="UNBAN"</tag></item>
+      <item>remove aí o ban<tag>out.action="UNBAN"</tag></item>
+      <item>tira o ban<tag>out.action="UNBAN"</tag></item>
+      <item>tira aí o ban<tag>out.action="UNBAN"</tag></item>
+      <item>unban<tag>out.action="UNBAN"</tag></item>
+      <!-- Keywords para os comandos SERVER_MUTE/SERVER_UNMUTE -->
+      <item>mute<tag>out.action="MUTE"</tag></item>
+      <item>cala<tag>out.action="MUTE"</tag></item>
+      <item>cala-me<tag>out.action="MUTE"</tag></item>
+      <item>estou farto de ouvir<tag>out.action="MUTE"</tag></item>
+      <item>não quero ouvir<tag>out.action="MUTE"</tag></item>
+      <item>não quero ouvir mais<tag>out.action="MUTE"</tag></item>
+      <!---->
+      <item>unmute<tag>out.action="UNMUTE"</tag></item>
+      <item>já posso ouvir<tag>out.action="UNMUTE"</tag></item>
+      <item>já pode falar<tag>out.action="UNMUTE"</tag></item>
+      <!-- Keywords para o comando INVITE -->
+      <item>convidar<tag>out.action="INVITE"</tag></item>
+      <item>convida<tag>out.action="INVITE"</tag></item>
+      <item>manda convite<tag>out.action="INVITE"</tag></item>
+      <item>manda aí convite<tag>out.action="INVITE"</tag></item>
+      <item>invite<tag>out.action="INVITE"</tag></item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">aí</item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">o</item>
+      <item repeat="0-1">do</item>
+      <item repeat="0-1">ao</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para identificar os utilizadores -->
+      <item>BILHAS<tag>out.name="BILHAS"</tag></item>
+      <item repeat="0-1">joão<tag>out.name="João"</tag></item>
+      <item repeat="0-1">andré<tag>out.name="André"</tag></item>
+    </one-of>
+  </rule>
+  
+  <!-- Regra para comandos sobre o próprio utilizador -->
+  <rule id="self_commands">
+    <one-of>
+      <!-- Keywords para o comando LEAVE -->
+      <item>quero sair<tag>out.action="LEAVE"</tag></item>
+      <item>quero sair do servidor<tag>out.action="LEAVE"</tag></item>
+      <item>tira-me daqui<tag>out.action="LEAVE"</tag></item>
+      <item>tira-me do servidor<tag>out.action="LEAVE"</tag></item>
+      <item>sair<tag>out.action="LEAVE"</tag></item>
+    </one-of>
+  </rule>
+  
+  <!-- Regra para obter informação externa ao Discord -->
+  <rule id="external_commands">
+    <one-of>
+      <!-- Keywords para o comando TELL -->
+      <item>contar<tag>out.action="TELL"</tag></item>
+      <item>conta-me<tag>out.action="TELL"</tag></item>
+      <item>conta<tag>out.action="TELL"</tag></item>
+      <item>diz<tag>out.action="TELL"</tag></item>
+      <item>diz-me<tag>out.action="TELL"</tag></item>
+      <item>como está o<tag>out.action="TELL"</tag></item>
+      <item>como está a<tag>out.action="TELL"</tag></item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">uma</item>
+      <item repeat="0-1">as</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para o comando JOKE -->
+      <item>piada<tag>out.subject="JOKE"</tag></item>
+      <item>anedota<tag>out.subject="JOKE"</tag></item>
+      <!-- Keywords para o comando NEWS -->      
+      <item>notícias<tag>out.subject="NEWS"</tag></item>
+      <item>novidades<tag>out.subject="NEWS"</tag></item>
+      <!-- Keywords para o comando WHEATER -->
+      <item>tempo<tag>out.subject="WHEATER"</tag></item>
+      <item>meteorologia<tag>out.subject="WHEATER"</tag></item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">em Aveiro<tag>out.city="Aveiro"</tag></item>
+      <item repeat="0-1">Aveiro<tag>out.city="Aveiro"</tag></item>
+      <item repeat="0-1">no Porto<tag>out.city="Porto"</tag></item>
+      <item repeat="0-1">Porto<tag>out.city="Porto"</tag></item>
+    </one-of>
+    
+  </rule>
+
+  <!-- Regra para interação com os papéis do Discord -->
+  <rule id="role_commands">
+    <one-of>
+      <!-- Keywords para os comandos ADD_ROLE/REMOVE_ROLE -->
+      <item>dá<tag>out.action="ADD_ROLE"</tag></item>
+      <item>põe<tag>out.action="ADD_ROLE"</tag></item>
+      <item>mete<tag>out.action="ADD_ROLE"</tag></item>
+      <!---->
+      <item>tira<tag>out.action="REMOVE_ROLE"</tag></item>
+      <item>remove<tag>out.action="REMOVE_ROLE"</tag></item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">o</item>
+      <item repeat="0-1">do</item>
+      <item repeat="0-1">ao</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para identificar os utilizadores -->
+      <item>BILHAS<tag>out.name="BILHAS"</tag></item>
+      <item>joão<tag>out.name="JOAO"</tag></item>
+      <item>andré<tag>out.name="ANDRE"</tag></item>
+    </one-of>
+    <one-of>
+      <item repeat="0-1">o papel de</item>
+      <item repeat="0-1">de</item>
+      <item repeat="0-1">como</item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para identificar os papéis -->
+      <item>administrador<tag>out.role="ADMINISTRATOR"</tag></item>
+      <item>moderador<tag>out.role="MODERATOR"</tag></item>
+    </one-of>
+  </rule>
+</grammar>

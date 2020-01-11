@@ -1,0 +1,156 @@
+<rule id="server_commands">
+    <one-of>
+      <!-- Keywords para os comandos KICK -->
+      <item>tira<tag>out="KICK"</tag></item>
+      <!--
+      <item>dá disconnect<tag>out="KICK"</tag></item>
+      <item>kick<tag>out="KICK"</tag></item>
+      <item>dá kick<tag>out="KICK"</tag></item>
+      <item>kicka<tag>out="KICK"</tag></item>
+      -->
+      <!-- Keywords para os comandos BAN/UNBAN -->
+      <item>ban<tag>out="BAN"</tag></item>
+      <!--
+      <item>dá ban<tag>out="BAN"</tag></item>
+      <item>expulsa<tag>out="BAN"</tag></item>
+      <item>expulsa aí<tag>out="BAN"</tag></item>
+      -->
+      <!---->
+      <item>remove o ban<tag>out="UNBAN"</tag></item>
+      <!--
+      <item>remove aí o ban<tag>out="UNBAN"</tag></item>
+      <itsem>tira o ban<tag>out="UNBAN"</tag></item>
+      <item>tira aí o ban<tag>out="UNBAN"</tag></item>
+      <item>unban<tag>out="UNBAN"</tag></item>
+      <item>dá unban<tag>out="UNBAN"</tag></item>
+      <item>dá aí unban<tag>out="UNBAN"</tag></item>
+      -->
+      <!-- Keywords para os comandos SERVER_MUTE/SERVER_UNMUTE -->
+      <item>mute<tag>out="MUTE"</tag></item>
+      <!--
+      <item>dá mute<tag>out="MUTE"</tag></item>
+      <item>cala<tag>out="MUTE"</tag></item>
+      <item>cala aí<tag>out="MUTE"</tag></item>
+      <item>cala-me<tag>out="MUTE"</tag></item>
+      <item>estou farto de ouvir<tag>out="MUTE"</tag></item>
+      <item>não quero ouvir<tag>out="MUTE"</tag></item>
+      <item>não quero ouvir mais<tag>out="MUTE"</tag></item>
+      -->
+      <!---->
+      <item>unmute<tag>out="UNMUTE"</tag></item>
+      <!--
+      <item>dá unmute<tag>out="UNMUTE"</tag></item>
+      <item>já posso ouvir<tag>out="UNMUTE"</tag></item>
+      <item>já pode falar<tag>out="UNMUTE"</tag></item>
+      -->
+      <!-- Keywords para o comando INVITE -->
+      <item>convidar<tag>out="INVITE"</tag></item>
+      <!--
+      <item>convida<tag>out="INVITE"</tag></item>
+      <item>convida aí<tag>out="INVITE"</tag></item>
+      <item>manda convite<tag>out="INVITE"</tag></item>
+      <item>manda aí convite<tag>out="INVITE"</tag></item>
+      <item>dá invite<tag>out="INVITE"</tag></item>
+      -->
+    </one-of>
+    <one-of>
+      <!-- Keywords para identificar os utilizadores -->
+      <item>joão<tag>out+="_JOAO"</tag></item>
+      <!--
+      <item>o joão<tag>out+="_JOAO"</tag></item>
+      <item>do joão<tag>out+="_JOAO"</tag></item>
+      <item>ao joão<tag>out+="_JOAO"</tag></item>
+      -->
+      <item>andré<tag>out+="_ANDRE"</tag></item>
+      <!--
+      <item>o andré<tag>out+="_ANDRE"</tag></item>
+      <item>do andré<tag>out+="_ANDRE"</tag></item>
+      <item>ao andré<tag>out+="_ANDRE"</tag></item>
+      -->
+    </one-of>
+  </rule>
+
+  <!-- Regra para comandos sobre o próprio utilizador -->
+  <rule id="self_commands">
+    <one-of>
+      <!-- Keywords para o comando LEAVE -->
+      <item>quero sair<tag>out="LEAVE"</tag></item>
+      <item>quero sair do servidor<tag>out="LEAVE"</tag></item>
+      <item>tira-me daqui<tag>out="LEAVE"</tag></item>
+      <item>tira-me do servidor<tag>out="LEAVE"</tag></item>
+      <item>sair<tag>out="LEAVE"</tag></item>
+    </one-of>
+  </rule>
+
+  <!-- Regra para obter informação externa ao Discord -->
+  <rule id="external_commands">
+    <one-of>
+      <!-- Keywords para o comando TELL -->
+      <item>contar<tag>out="TELL"</tag></item>
+      <item>conta-me<tag>out="TELL"</tag></item>
+      <item>conta<tag>out="TELL"</tag></item>
+      <item>diz<tag>out="TELL"</tag></item>
+      <item>diz-me<tag>out="TELL"</tag></item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para o comando JOKE -->
+      <item>uma piada<tag>out+="_JOKE"</tag></item>
+      <item>piada<tag>out+="_JOKE"</tag></item>
+      <item>uma anedota<tag>out+="_JOKE"</tag></item>
+      <item>anedota<tag>out+="_JOKE"</tag></item>
+      <!-- Keywords para o comando NEWS -->      
+      <item>notícias<tag>out+="_NEWS"</tag></item>
+      <item>as notícias<tag>out+="_NEWS"</tag></item>
+      <item>novidades<tag>out+="_NEWS"</tag></item>
+      <item>as novidades<tag>out+="_NEWS"</tag></item>
+    </one-of>
+  </rule>
+
+  <!-- Regra para interação com os papéis do Discord -->
+  <rule id="role_commands">
+    <one-of>
+      <!-- Keywords para os comandos ADD_ROLE/REMOVE_ROLE -->
+      <item>dá<tag>out="ADD_ROLE"</tag></item>
+      <item>põe<tag>out="ADD_ROLE"</tag></item>      
+      <!---->
+      <item>tira<tag>out="REMOVE_ROLE"</tag></item>
+      <item>remove<tag>out="REMOVE_ROLE"</tag></item>
+    </one-of>
+    <one-of>
+      <!-- Keywords para identificar os utilizadores -->
+      <item>joão<tag>out+="_JOAO"</tag></item>
+      <item>o joão<tag>out+="_JOAO"</tag></item>
+      <item>do joão<tag>out+="_JOAO"</tag></item>
+      <item>ao joão<tag>out+="_JOAO"</tag></item>
+      <item>andré<tag>out+="_ANDRE"</tag></item>
+      <item>o andré<tag>out+="_ANDRE"</tag></item>
+      <item>do andré<tag>out+="_ANDRE"</tag></item>
+      <item>ao andré<tag>out+="_ANDRE"</tag></item> 
+    </one-of>
+    <one-of>
+      <!-- Keywords para identificar os papéis -->
+      <item>o papel de administrador<tag>out+="_ADMINISTRATOR"</tag></item>
+      <item>de administrador<tag>out+="_ADMINISTRATOR"</tag></item>
+      <item>como administrador<tag>out+="_ADMINISTRATOR"</tag></item>
+      <item>o papel de moderador<tag>out+="_MODERATOR"</tag></item>
+      <item>de moderador<tag>out+="_MODERATOR"</tag></item>
+      <item>como moderador<tag>out+="_MODERATOR"</tag></item>
+    </one-of>
+  </rule>
+
+  <!-- Regra para o bot reconhecer nomes -->
+  <rule id="names">
+    <one-of>
+      <!-- Keywords para os nomes das salas -->
+      <item>um<tag>out="ONE"</tag></item>
+      <item>dois<tag>out="TWO"</tag></item>
+      <item>três<tag>out="THREE"</tag></item>
+      <item>quatro<tag>out="FOUR"</tag></item>
+      <item>cinco<tag>out="FIVE"</tag></item>
+      <item>seis<tag>out="SIX"</tag></item>
+      <item>sete<tag>out="SEVEN"</tag></item>
+      <item>oito<tag>out="EIGHT"</tag></item>
+      <item>nove<tag>out="NINE"</tag></item>
+      <item>dez<tag>out="TEN"</tag></item>
+    </one-of>
+  </rule> 
