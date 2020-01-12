@@ -165,23 +165,65 @@ namespace AppGui
                             }
                             break;
                         case "TELL":
-                            /*
-                            if((string)json.subject.ToString() == "JOKE")
+                            if((string)json.recognized[5].ToString() == "JOKE")
                             {
-                                _client.SendMessageAsync("Piada:\n" + (string)json.val.ToString());
+                                _client.SendMessageAsync("Piada:\n" + (string)json.recognized[7].ToString());
                             }
-                            else if ((string)json.subject.ToString() == "NEWS")
+                            else if ((string)json.recognized[5].ToString() == "NEWS")
                             {
-                                _client.SendMessageAsync("NOTÍCIAS:\n"+(string)json.val.ToString());
-                            }
-                            else if ((string)json.subject.ToString() == "WHEATER")
-                            {
-                                if ((string)json.val != null)
+                                string url = "http://feeds.ojogo.pt/OJ-Futebol";
+                                XmlReader reader = XmlReader.Create(url);
+                                SyndicationFeed feed = SyndicationFeed.Load(reader);
+                                reader.Close();
+                                String subject = "";
+                                int i = 0;
+                                foreach (SyndicationItem item in feed.Items)
                                 {
-                                    _client.SendMessageAsync((string)json.val.ToString());
+                                    subject += item.Title.Text + ".\n";
+                                    i++;
+                                    if (i == 5)
+                                    {
+                                        break;
+                                    }
                                 }
+                                t.Speak(subject);
                             }
-                            */
+                            else if ((string)json.recognized[5].ToString() == "WHEATER")
+                            {
+                                string URL = "http://api.openweathermap.org/data/2.5/weather?q=Aveiro&APPID=6fcebaa15d35d3672004b399373a1279&units=metric";
+                                Console.WriteLine(URL);
+                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                                request.Method = "GET";
+                                request.ContentType = "application/json";
+
+                                try
+                                {
+                                    String temperatura = "";
+                                    String info = "";
+                                    WebResponse webResponse = request.GetResponse();
+                                    using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
+                                    using (StreamReader responseReader = new StreamReader(webStream))
+                                    {
+                                        string response = responseReader.ReadToEnd();
+                                        dynamic tojson2 = JsonConvert.DeserializeObject(response);
+
+                                        Console.Out.WriteLine((string)tojson2.main.temp.ToString());
+                                        temperatura = (string)tojson2.main.temp.ToString();
+                                        info = translate((string)tojson2.weather[0].description.ToString());
+
+                                    }
+
+                                    t.Speak("Meteorologia em Aveiro.\n" + info + ".\n " + temperatura + " graus Celcius.");
+                                }
+                                catch (Exception es)
+                                {
+                                    Console.Out.WriteLine("-----------------");
+                                    Console.Out.WriteLine(es.Message);
+                                    t.Speak("Algo de errado aconteceu");
+
+                                }
+
+                            }
                             break;
                         case "ADD_ROLE":
                             if ((string)json.recognized[5].ToString() != null)
