@@ -8,12 +8,12 @@ import scxmlgen.interfaces.IModality;
  */
 public enum Gesture implements IModality{
 
-    MUTE("[3][muteR]",1500),
-    UNMUTE("[5][unmute1_Right]",1500),
-    LEAVE("[2][leave]",1500),
-    INVITE("[1][invite]",1500),
-    UMBRELLA("[4][tempo]",1500),
-    BALL("[0][bola]",1500);
+    MUTE("[3][muteR]",3000),
+    UNMUTE("[5][unmuteR]",3000),
+    LEAVE("[2][leave]",3000),
+    INVITE("[1][invite]",3000),
+    UMBRELLA("[4][tempo]",3000),
+    BALL("[0][bola]",3000);
     
     private String event;
     private int timeout;

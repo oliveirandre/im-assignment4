@@ -28,12 +28,13 @@ namespace AppGui
         {
             InitializeComponent();
 
+            t = new Tts();
+
             _client = new DiscordWebhookClient(643897438297391124, "-Jpr2aw_HQeS5iLVhC0TQzc7d9y4tTAp55aZZgfBvJvDuKjjmfxYGgcEEcLe3lnnAwyF");
 
             mmiC = new MmiCommunication("localhost", 8000, "User1", "GUI");
             mmiC.Message += MmiC_Message;
             mmiC.Start();
-            t = new Tts();
         }
 
         private void MmiC_Message(object sender, MmiEventArgs e)
@@ -42,6 +43,7 @@ namespace AppGui
             var com = doc.Descendants("command").FirstOrDefault().Value;
             dynamic json = JsonConvert.DeserializeObject(com);
             bool wake = false;
+            Console.WriteLine(e.Message.ToString());
 
             Console.WriteLine(json.recognized);
             if ((string)json.recognized[1].ToString() == "WAKE")
@@ -165,62 +167,10 @@ namespace AppGui
                         case "TELL":
                             if((string)json.recognized[5].ToString() == "JOKE")
                             {
-                                _client.SendMessageAsync("Piada:\n" + (string)json.recognized[7].ToString());
-                            }
-                            else if ((string)json.recognized[5].ToString() == "NEWS")
-                            {
-                                string url = "http://feeds.ojogo.pt/OJ-Futebol";
-                                XmlReader reader = XmlReader.Create(url);
-                                SyndicationFeed feed = SyndicationFeed.Load(reader);
-                                reader.Close();
-                                String subject = "";
-                                int i = 0;
-                                foreach (SyndicationItem item in feed.Items)
-                                {
-                                    subject += item.Title.Text + ".\n";
-                                    i++;
-                                    if (i == 5)
-                                    {
-                                        break;
-                                    }
-                                }
-                                t.Speak(subject);
-                            }
-                            else if ((string)json.recognized[5].ToString() == "WHEATER")
-                            {
-                                string URL = "http://api.openweathermap.org/data/2.5/weather?q=Aveiro&APPID=6fcebaa15d35d3672004b399373a1279&units=metric";
-                                Console.WriteLine(URL);
-                                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
-                                request.Method = "GET";
-                                request.ContentType = "application/json";
-
-                                try
-                                {
-                                    String temperatura = "";
-                                    String info = "";
-                                    WebResponse webResponse = request.GetResponse();
-                                    using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
-                                    using (StreamReader responseReader = new StreamReader(webStream))
-                                    {
-                                        string response = responseReader.ReadToEnd();
-                                        dynamic tojson2 = JsonConvert.DeserializeObject(response);
-
-                                        Console.Out.WriteLine((string)tojson2.main.temp.ToString());
-                                        temperatura = (string)tojson2.main.temp.ToString();
-                                        info = translate((string)tojson2.weather[0].description.ToString());
-
-                                    }
-
-                                    t.Speak("Meteorologia em Aveiro.\n" + info + ".\n " + temperatura + " graus Celcius.");
-                                }
-                                catch (Exception es)
-                                {
-                                    Console.Out.WriteLine("-----------------");
-                                    Console.Out.WriteLine(es.Message);
-                                    t.Speak("Algo de errado aconteceu");
-
-                                }
-
+                                string[] lines = File.ReadAllLines(Environment.CurrentDirectory + "\\piadas.txt");
+                                Random rnd = new Random();
+                                int rand = rnd.Next(0, lines.Length);
+                                t.Speak(lines[rand]);
                             }
                             break;
                         case "ADD_ROLE":
@@ -255,9 +205,6 @@ namespace AppGui
                                 }
                             }
                             break;
-                        case "invite":
-                            t.Speak("invite");
-                            break;
                         default:
                             break;
                     }
@@ -288,11 +235,11 @@ namespace AppGui
                         break;
                     case "LEAVE":
                         _client.SendMessageAsync("!MOVEAFKALL");
-                        t.Speak("Todos os utilizadores foram retirados da sala.");
+                        t.Speak("Foi movido para a sala de inatividade.");
                         break;
                     case "JOIN":
                         _client.SendMessageAsync("!UNMOVEAFKALL");
-                        t.Speak("Todos os utilizadores foram repostos na sala.");
+                        t.Speak("Voltou à sala onde estava.");
                         break;
                     case "UMBRELLA":
                         if (json.recognized[5].ToString() == "AVEIRO")
@@ -356,7 +303,7 @@ namespace AppGui
 
                                 }
 
-                                t.Speak("Meteorologia em Aveiro.\n" + info + ".\n " + temperatura + " graus Celcius.");
+                                t.Speak("Meteorologia em Porto.\n" + info + ".\n " + temperatura + " graus Celcius.");
                             }
                             catch (Exception es)
                             {
@@ -368,10 +315,38 @@ namespace AppGui
                             break;
                         }
                     case "MUTE":
-                        _client.SendMessageAsync("!MUTE " + (string)json.recognized[5].ToString());
+                        if ((string)json.recognized[5].ToString() == "JOAO")
+                        {
+                            _client.SendMessageAsync("!MUTE João");
+                            t.Speak("O utilizador João foi muted.");
+                        }
+                        else if ((string)json.recognized[5].ToString() == "ANDRE")
+                        {
+                            _client.SendMessageAsync("!MUTE André");
+                            t.Speak("O utilizador André foi muted.");
+                        }
+                        else if ((string)json.recognized[5].ToString() == "TODOS")
+                        {
+                            _client.SendMessageAsync("!MUTEALL");
+                            t.Speak("Todos os utilizadores foram muted.");
+                        }
                         break;
                     case "UNMUTE":
-                        _client.SendMessageAsync("!UNMUTE " + (string)json.recognized[5].ToString());
+                        if ((string)json.recognized[5].ToString() == "JOAO")
+                        {
+                            _client.SendMessageAsync("!UNMUTE João");
+                            t.Speak("O utilizador João foi unmuted.");
+                        }
+                        else if ((string)json.recognized[5].ToString() == "ANDRE")
+                        {
+                            _client.SendMessageAsync("!UNMUTE André");
+                            t.Speak("O utilizador André foi unmuted.");
+                        }
+                        else if ((string)json.recognized[5].ToString() == "TODOS")
+                        {
+                            _client.SendMessageAsync("!UNMUTEALL");
+                            t.Speak("Todos os utilizadores foram unmuted.");
+                        }
                         break;
                     default:
                         break;

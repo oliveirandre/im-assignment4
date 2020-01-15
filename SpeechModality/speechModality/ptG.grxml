@@ -21,6 +21,15 @@
     <one-of>
       <!-- Keywords para o comando WAKE -->
       <item>pedro<tag>out.wake="WAKE"</tag></item>
+      <item>joão<tag>out.name="JOAO"</tag></item>
+      <item>andré<tag>out.name="ANDRE"</tag></item>
+      <item>todos<tag>out.name="TODOS"</tag></item>
+      <item>
+        aveiro<tag>out.name="AVEIRO"</tag>
+      </item>
+      <item>
+        porto<tag>out.name="PORTO"</tag>
+      </item>
     </one-of>
   </rule>
   
@@ -124,10 +133,17 @@
     <one-of>
       <!-- Keywords para o comando LEAVE -->
       <item>quero sair<tag>out.action="LEAVE"</tag></item>
-      <item>quero sair do servidor<tag>out.action="LEAVE"</tag></item>
+      <item>quero sair da sala<tag>out.action="LEAVE"</tag></item>
       <item>tira-me daqui<tag>out.action="LEAVE"</tag></item>
-      <item>tira-me do servidor<tag>out.action="LEAVE"</tag></item>
+      <item>tira-me da sala<tag>out.action="LEAVE"</tag></item>
       <item>sair<tag>out.action="LEAVE"</tag></item>
+      <item>quero voltar<tag>out.action="JOIN"</tag></item>
+      <item>
+        voltar à sala<tag>out.action="JOIN"</tag>
+      </item>
+      <item>
+        põe-me na sala<tag>out.action="JOIN"</tag>
+      </item>
     </one-of>
   </rule>
   

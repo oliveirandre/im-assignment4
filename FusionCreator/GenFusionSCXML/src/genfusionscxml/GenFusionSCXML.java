@@ -23,7 +23,7 @@ public class GenFusionSCXML {
     public static void main(String[] args) throws IOException {
 
     FusionGenerator fg = new FusionGenerator();
-    
+        
     fg.Redundancy(Speech.NEWS, Gesture.BALL, Output.NEWS);
     fg.Redundancy(Speech.LEAVE, Gesture.LEAVE, Output.LEAVE);
     fg.Redundancy(Speech.JOIN, Gesture.INVITE, Output.JOIN);
@@ -32,8 +32,10 @@ public class GenFusionSCXML {
     fg.Complementary(Gesture.UMBRELLA, Speech.PORTO, Output.UMBRELLA_PORTO);
     fg.Complementary(Gesture.MUTE, Speech.JOAO, Output.MUTE_JOAO);
     fg.Complementary(Gesture.MUTE, Speech.ANDRE, Output.MUTE_ANDRE);
+    fg.Complementary(Gesture.MUTE, Speech.TODOS, Output.MUTE_TODOS);
     fg.Complementary(Gesture.UNMUTE, Speech.JOAO, Output.UNMUTE_JOAO);
     fg.Complementary(Gesture.UNMUTE, Speech.ANDRE, Output.UNMUTE_ANDRE);
+    fg.Complementary(Gesture.MUTE, Speech.TODOS, Output.UNMUTE_TODOS);
     
     fg.Build("fusion.scxml");
         

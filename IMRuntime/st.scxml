@@ -20,7 +20,6 @@
 		<data name="ASR" /> 
 		<data name="TTS" /> 
 		<data name="GUI" /> 
-		<data name="JSONDATA" /> 
 	</datamodel>
 
 	<state id="init">
@@ -49,6 +48,11 @@
 						<assign name="ASR" expr="true" />
 					</if>
 					
+					<if cond="${_eventdata.sourceMC eq 'TOUCH'}">
+						<assign name="TOUCH" expr="true" />
+					</if>
+					
+					
 					<if cond="${_eventdata.sourceMC eq 'KINECT'}">
 						<assign name="KINECT" expr="true" />
 					</if>
@@ -69,17 +73,6 @@
 				</onentry>
 			
 				<transition event="mmi:extensionNotification" target="events">
-					
-					<!-- EXAMPLE TO READ THE JSON AND COMPARE...
-					<assign name="JSONDATA" expr="${DATA(_eventdata.data, '//emma/interpretation/command')}" />
-					<if cond="${JsonParse(JSONDATA, 'recognized/1') eq 'SHAPE'}">
-						<log label="[JMESSAGE]" expr="${JsonParse(JSONDATA, 'recognized/1')}" />
-					<else />
-						<log label="[JMESSAGE]" expr="${JsonParse(JSONDATA, 'recognized/1')}" />
-					</if>
-				
-					-->
-				
 					<if cond="${_eventdata.sourceMC eq 'APP'}">
 						<assign name="Action" expr="${_eventdata.data}" />
 						<commons:var name="startRequest" expr="${mmi:newStartRequest(contextId, source, 'TTS', mmi:newRequestId(contextId), 'READ', Action)}" />
@@ -103,8 +96,10 @@
 						<send event="mmi:startRequest" target="GUI" targettype="MC" namelist="startRequest" />
 					</if>
 					
-					<!-- EVENT FROM GESTURES -->
-					<if cond="${_eventdata.sourceMC eq 'GESTURES'}">
+					<log label="[Events]" expr="${_eventdata.sourceMC}" />
+					<!-- EVENT FROM FUSION -->
+					<if cond="${_eventdata.sourceMC eq 'FUSION'}">
+					
 						<assign name="currAction" expr="command" />
 						<assign name="Action" expr="${_eventdata.data}" />
 						<commons:var name="startRequest" expr="${mmi:newStartRequest(contextId, source, 'GUI', mmi:newRequestId(contextId), currAction, Action)}" />

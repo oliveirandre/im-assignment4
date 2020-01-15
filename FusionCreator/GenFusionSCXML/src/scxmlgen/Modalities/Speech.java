@@ -8,14 +8,15 @@ import scxmlgen.interfaces.IModality;
 
 public enum Speech implements IModality{  
 
-    JOAO("[name][JOAO]",0),
-    ANDRE("[name][ANDRE]",0),
-    AVEIRO("[city][Aveiro]",0),
-    PORTO("[city][Porto]",0),
-    NEWS("[subject][NEWS]",0),
-    LEAVE("[action][LEAVE]",0),  
-    JOIN("[action][JOIN]",0),
-    WAKE("[wake][WAKE]",0);
+    JOAO("[name][JOAO]",1500),
+    ANDRE("[name][ANDRE]",1500),
+    AVEIRO("[name][AVEIRO]",1500),
+    PORTO("[name][PORTO]",1500),
+    TODOS("[name][TODOS]",1500),
+    NEWS("[wake][WAKE][action][TELL][subject][NEWS]",1500),
+    LEAVE("[wake][WAKE][action][LEAVE]",1500),  
+    JOIN("[wake][WAKE][action][JOIN]",1500),
+    WAKE("[wake][WAKE]",1500);
 
 private String event; 
 private int timeout;
