@@ -123,8 +123,11 @@
     </one-of>
     <one-of>
       <!-- Keywords para identificar os utilizadores -->
-      <item repeat="0-1">joão<tag>out.name="João"</tag></item>
-      <item repeat="0-1">andré<tag>out.name="André"</tag></item>
+      <item repeat="0-1">joão<tag>out.name="JOAO"</tag></item>
+      <item repeat="0-1">andré<tag>out.name="ANDRE"</tag></item>
+      <item repeat="0-1">
+        diogo<tag>out.name="Diogo"</tag>
+      </item>
     </one-of>
   </rule>
   

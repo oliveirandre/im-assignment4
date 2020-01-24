@@ -115,53 +115,53 @@ namespace AppGui
                             }
                             break;
                         case "BAN":
-                            if ((string)json.recognized[5].ToString() != null)
+                            if((string)json.recognized[5].ToString() == "JOAO") 
                             {
-                                _client.SendMessageAsync("!BAN " + (string)json.recognized[5].ToString());
+                                _client.SendMessageAsync("!BAN João");
                             }
-                            else
+                            else if((string)json.recognized[5].ToString() == "ANDRE")
                             {
-                                _client.SendMessageAsync("Idenfique quem deseja banir");
+                                _client.SendMessageAsync("!BAN André");
                             }
                             break;
                         case "UNBAN":
-                            if ((string)json.recognized[5].ToString() != null)
+                            if ((string)json.recognized[5].ToString() == "JOAO")
                             {
-                                _client.SendMessageAsync("!UNBAN " + (string)json.recognized[5].ToString());
+                                _client.SendMessageAsync("!UNBAN João");
                             }
-                            else
+                            else if ((string)json.recognized[5].ToString() == "ANDRE")
                             {
-                                _client.SendMessageAsync("Idenfique a quem deseja retirar o ban");
+                                _client.SendMessageAsync("!UNBAN André");
                             }
                             break;
                         case "MUTE":
-                            if ((string)json.recognized[5].ToString() != null)
+                            if ((string)json.recognized[5].ToString() == "JOAO")
                             {
-                                _client.SendMessageAsync("!MUTE " + (string)json.recognized[5].ToString());
+                                _client.SendMessageAsync("!MUTE João");
                             }
-                            else
+                            else if ((string)json.recognized[5].ToString() == "ANDRE")
                             {
-                                _client.SendMessageAsync("Idenfique quem deseja calar");
+                                _client.SendMessageAsync("!MUTE André");
                             }
                             break;
                         case "UNMUTE":
-                            if ((string)json.recognized[5].ToString() != null)
+                            if ((string)json.recognized[5].ToString() == "JOAO")
                             {
-                                _client.SendMessageAsync("!UNMUTE " + (string)json.recognized[5].ToString());
+                                _client.SendMessageAsync("!UNMUTE João");
                             }
-                            else
+                            else if ((string)json.recognized[5].ToString() == "ANDRE")
                             {
-                                _client.SendMessageAsync("Idenfique quem deseja calar");
+                                _client.SendMessageAsync("!UNMUTE André");
                             }
                             break;
                         case "INVITE":
-                            if ((string)json.recognized[5].ToString() != null)
+                            if ((string)json.recognized[5].ToString() == "JOAO")
                             {
-                                _client.SendMessageAsync("!INVITE " + (string)json.recognized[5].ToString());
+                                _client.SendMessageAsync("!INVITE João");
                             }
-                            else
+                            else if ((string)json.recognized[5].ToString() == "ANDRE")
                             {
-                                _client.SendMessageAsync("Identifique quem deseja convidar");
+                                _client.SendMessageAsync("!INVITE André");
                             }
                             break;
                         case "TELL":
@@ -172,36 +172,128 @@ namespace AppGui
                                 int rand = rnd.Next(0, lines.Length);
                                 t.Speak(lines[rand]);
                             }
-                            break;
-                        case "ADD_ROLE":
-                            if ((string)json.recognized[5].ToString() != null)
+                            if ((string)json.recognized[5].ToString() == "WHEATER")
                             {
-                                if ((string)json.recognized[7].ToString() != null)
+                                if ((string)json.recognized[7].ToString() == "Aveiro")
                                 {
-                                    if ((string)json.recognized[7].ToString() == "ADMINISTRATOR")
+                                    string URL = "http://api.openweathermap.org/data/2.5/weather?q=Aveiro&APPID=6fcebaa15d35d3672004b399373a1279&units=metric";
+                                    Console.WriteLine(URL);
+                                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                                    request.Method = "GET";
+                                    request.ContentType = "application/json";
+
+                                    try
                                     {
-                                        _client.SendMessageAsync("!ADDROLEADMIN " + (string)json.recognized[5].ToString());
+                                        String temperatura = "";
+                                        String info = "";
+                                        WebResponse webResponse = request.GetResponse();
+                                        using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
+                                        using (StreamReader responseReader = new StreamReader(webStream))
+                                        {
+                                            string response = responseReader.ReadToEnd();
+                                            dynamic tojson2 = JsonConvert.DeserializeObject(response);
+
+                                            Console.Out.WriteLine((string)tojson2.main.temp.ToString());
+                                            temperatura = (string)tojson2.main.temp.ToString();
+                                            info = translate((string)tojson2.weather[0].description.ToString());
+
+                                        }
+
+                                        t.Speak("Meteorologia em Aveiro.\n" + info + ".\n " + temperatura + " graus Celcius.");
                                     }
-                                    else
+                                    catch (Exception es)
                                     {
-                                        _client.SendMessageAsync("!ADDROLEMOD " + (string)json.recognized[5].ToString());
+                                        Console.Out.WriteLine("-----------------");
+                                        Console.Out.WriteLine(es.Message);
+                                        t.Speak("Algo de errado aconteceu");
+
                                     }
+                                    break;
+                                }
+                                else if((string)json.recognized[7].ToString() == "Porto")
+                                {
+                                    string URL = "http://api.openweathermap.org/data/2.5/weather?q=Porto&APPID=6fcebaa15d35d3672004b399373a1279&units=metric";
+                                    Console.WriteLine(URL);
+                                    HttpWebRequest request = (HttpWebRequest)WebRequest.Create(URL);
+                                    request.Method = "GET";
+                                    request.ContentType = "application/json";
+
+                                    try
+                                    {
+                                        String temperatura = "";
+                                        String info = "";
+                                        WebResponse webResponse = request.GetResponse();
+                                        using (Stream webStream = webResponse.GetResponseStream() ?? Stream.Null)
+                                        using (StreamReader responseReader = new StreamReader(webStream))
+                                        {
+                                            string response = responseReader.ReadToEnd();
+                                            dynamic tojson2 = JsonConvert.DeserializeObject(response);
+
+                                            Console.Out.WriteLine((string)tojson2.main.temp.ToString());
+                                            temperatura = (string)tojson2.main.temp.ToString();
+                                            info = translate((string)tojson2.weather[0].description.ToString());
+
+                                        }
+
+                                        t.Speak("Meteorologia no Porto.\n" + info + ".\n " + temperatura + " graus Celcius.");
+                                    }
+                                    catch (Exception es)
+                                    {
+                                        Console.Out.WriteLine("-----------------");
+                                        Console.Out.WriteLine(es.Message);
+                                        t.Speak("Algo de errado aconteceu");
+
+                                    }
+                                    break;
                                 }
                             }
                             break;
-                        case "REMOVE_ROLE":
-                            if ((string)json.recognized[5].ToString() != null)
+                            
+                        case "ADD_ROLE":
+                            if ((string)json.recognized[7].ToString() == "ADMINISTRATOR")
                             {
-                                if ((string)json.recognized[7].ToString() != null)
+                                if ((string)json.recognized[5].ToString() == "JOAO")
                                 {
-                                    if ((string)json.recognized[7].ToString() == "ADMINISTRATOR")
-                                    {
-                                        _client.SendMessageAsync("!DELROLEADMIN " + (string)json.recognized[5].ToString());
-                                    }
-                                    else
-                                    {
-                                        _client.SendMessageAsync("!DELROLEMOD " + (string)json.recognized[5].ToString());
-                                    }
+                                    _client.SendMessageAsync("!ADDROLEADMIN João");
+                                }
+                                else if ((string)json.recognized[5].ToString() == "ANDRE")
+                                {
+                                    _client.SendMessageAsync("!ADDROLEADMIN André");
+                                }
+                            }
+                            else
+                            {
+                                if ((string)json.recognized[5].ToString() == "JOAO")
+                                {
+                                    _client.SendMessageAsync("!ADDROLEMOD João");
+                                }
+                                else if ((string)json.recognized[5].ToString() == "ANDRE")
+                                {
+                                    _client.SendMessageAsync("!ADDROLEMOD André");
+                                }
+                            }                            
+                            break;
+                        case "REMOVE_ROLE":
+                            if ((string)json.recognized[7].ToString() == "ADMINISTRATOR")
+                            {
+                                if ((string)json.recognized[5].ToString() == "JOAO")
+                                {
+                                    _client.SendMessageAsync("!DELROLEADMIN João");
+                                }
+                                else if ((string)json.recognized[5].ToString() == "ANDRE")
+                                {
+                                    _client.SendMessageAsync("!DELROLEADMIN André");
+                                }
+                            }
+                            else
+                            {
+                                if ((string)json.recognized[5].ToString() == "JOAO")
+                                {
+                                    _client.SendMessageAsync("!DELROLEMOD João");
+                                }
+                                else if ((string)json.recognized[5].ToString() == "ANDRE")
+                                {
+                                    _client.SendMessageAsync("!DELROLEMOD André");
                                 }
                             }
                             break;
